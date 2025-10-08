@@ -20,8 +20,7 @@ You'll need to have Flutter installed on your computer.
 ### Installation
 
 1.  **Download the code:**
-   ```sh
-   # Replace the URL with your own repository's URL
+   ```sh 
    git clone https://github.com/aasimahmad2048/knovator_project_aasim_ahmad.git
    ```
 
@@ -47,3 +46,4 @@ You'll need to have Flutter installed on your computer.
 3.  Posts you haven't read yet will have a yellow background.
 4.  Tap on a post to read it. After you view it, the yellow background will disappear.
 5.  If you go back to the home screen, the app will check for new updates. If any post has changed, you'll see a refresh icon (🔄) next to it in your local list.
+
