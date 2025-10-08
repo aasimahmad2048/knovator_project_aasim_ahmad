@@ -20,12 +20,6 @@ class BaseApi {
         headers: headers,
       );
 
-      // if (kDebugMode) {
-      //   print("API CALL: $baseUrl$endpoint");
-      //   print("STATUS: ${response.statusCode}");
-      //   print("BODY: ${response.body}");
-      // }
-
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final jsonData = jsonDecode(response.body);
 

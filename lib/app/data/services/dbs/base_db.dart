@@ -27,8 +27,7 @@ class BaseDb {
         ${DbPath.colUserId} INTEGER,
         ${DbPath.colTitle} TEXT,
         ${DbPath.colBody} TEXT,
-        ${DbPath.colIsRead} INTEGER,
-        ${DbPath.colIsModified} INTEGER
+        ${DbPath.colIsRead} INTEGER, 
       )
     ''');
   }

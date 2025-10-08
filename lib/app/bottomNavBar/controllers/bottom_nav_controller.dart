@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:knovator_project_aasim_ahmad/app/ui/home/bindings/binding.dart';
-import 'package:knovator_project_aasim_ahmad/app/ui/home/views/home_view.dart';
-import 'package:knovator_project_aasim_ahmad/app/ui/localPost/bindings.dart/local_post_binding.dart';
-import 'package:knovator_project_aasim_ahmad/app/ui/localPost/views/local_post_view.dart';
+import '../../ui/home/bindings/binding.dart';
+import '../../ui/home/views/home_view.dart';
+import '../../ui/localPost/bindings.dart/local_post_binding.dart';
+import '../../ui/localPost/views/local_post_view.dart';
 
 class BottomNavController extends GetxController {
   var currentIndex = 0.obs;

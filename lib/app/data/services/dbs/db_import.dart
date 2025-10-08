@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:sqflite/sqflite.dart';
 
 import '../../models/post_model.dart';
@@ -39,11 +41,40 @@ class DbImport implements Db {
   @override
   Future<void> insertOrUpdatePost(Post post) async {
     final db = await BaseDb.database;
-    await db.insert(
-      DbPath.postsTable,
-      post.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+
+    final dbResponse = await postDetail(post.id);
+
+    if (dbResponse.status) {
+      final existingPost = dbResponse.data;
+
+      if (existingPost == null) {
+        // Post doesn't exist, insert
+        await db.insert(
+          DbPath.postsTable,
+          post.copyWith(isRead: false).toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      } else {
+        // Post exists, check if content has changed
+        final networkPostJson = jsonEncode(post.toJson());
+        final dbPostJson = jsonEncode(existingPost.toJson());
+
+        if (networkPostJson != dbPostJson) {
+          print("Network: $networkPostJson");
+          print("DB: $dbPostJson");
+
+          // Update, but preserve the local read status
+          final postToUpdate = post.copyWith(isRead: existingPost.isRead);
+
+          await db.update(
+            DbPath.postsTable,
+            postToUpdate.toMap(),
+            where: '${DbPath.colId} = ?',
+            whereArgs: [post.id],
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -51,9 +82,9 @@ class DbImport implements Db {
     final db = await BaseDb.database;
     await db.update(
       DbPath.postsTable,
-      {DbPath.colIsRead: 1, DbPath.colIsModified: 0},
+      {DbPath.colIsRead: 1},
       where: '${DbPath.colId} = ?',
-      whereArgs: [id], // ✅ fixed
+      whereArgs: [id],
     );
   }
 

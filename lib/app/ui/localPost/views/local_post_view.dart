@@ -39,9 +39,7 @@ class LocalPostView extends GetView<LocalPostController> {
                     radius: 25,
                     child: Text(post.id.toString()),
                   ),
-                  trailing: post.isModified
-                      ? Icon(Icons.change_circle_rounded)
-                      : SizedBox(),
+
                   title: Text(
                     post.title,
                     maxLines: 1,

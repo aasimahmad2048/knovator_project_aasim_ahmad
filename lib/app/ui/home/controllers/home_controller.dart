@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:knovator_project_aasim_ahmad/app/data/services/dbs/db_import.dart';
+import '../../../data/services/dbs/db_import.dart';
 import '../../../data/models/post_model.dart';
 import '../../../data/services/apis/api_import.dart';
 

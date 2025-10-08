@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';  
+import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../controllers/bottom_nav_controller.dart';
@@ -24,7 +24,7 @@ class BottomNavView extends GetView<BottomNavController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              activeIcon: Icon(Icons.person_outlined),
+              activeIcon: Icon(Icons.cloud_done_outlined),
               label: "Local Post",
             ),
           ],

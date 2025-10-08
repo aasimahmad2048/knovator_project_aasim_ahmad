@@ -20,7 +20,8 @@ You'll need to have Flutter installed on your computer.
 ### Installation
 
 1.  **Download the code:**
-   ```sh 
+   ```sh
+   # Replace the URL with your own repository's URL
    git clone https://github.com/aasimahmad2048/knovator_project_aasim_ahmad.git
    ```
 

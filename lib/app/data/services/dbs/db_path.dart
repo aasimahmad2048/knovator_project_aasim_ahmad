@@ -8,5 +8,4 @@ class DbPath {
   static const colTitle = 'title';
   static const colBody = 'body';
   static const colIsRead = 'isRead';
-  static const colIsModified = 'isModified';
 }
