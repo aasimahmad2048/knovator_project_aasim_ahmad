@@ -10,8 +10,6 @@ class HomeController extends GetxController {
   var posts = <Post>[].obs;
   var isLoading = false.obs;
 
-  String get hello => "Hello world";
-
   @override
   void onInit() {
     super.onInit();

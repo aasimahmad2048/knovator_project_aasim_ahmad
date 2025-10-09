@@ -14,22 +14,21 @@ class BaseDb {
 
   static Future<Database> _initDatabase() async {
     final directory = await getApplicationDocumentsDirectory();
-    // final dbPath = await getDatabasesPath();
+    final dbPath = await getDatabasesPath();
     final path = join(directory.path, DbPath.dbName);
-
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   static Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE ${DbPath.postsTable} (
-        ${DbPath.colId} INTEGER PRIMARY KEY,
-        ${DbPath.colUserId} INTEGER,
-        ${DbPath.colTitle} TEXT,
-        ${DbPath.colBody} TEXT,
-        ${DbPath.colIsRead} INTEGER, 
-      )
-    ''');
+    CREATE TABLE ${DbPath.postsTable} (
+      ${DbPath.colId} INTEGER PRIMARY KEY,
+      ${DbPath.colUserId} INTEGER,
+      ${DbPath.colTitle} TEXT,
+      ${DbPath.colBody} TEXT,
+      ${DbPath.colIsRead} INTEGER
+    )
+  ''');
   }
 }
 

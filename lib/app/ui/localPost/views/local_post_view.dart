@@ -25,30 +25,33 @@ class LocalPostView extends GetView<LocalPostController> {
           itemCount: controller.posts.length,
           itemBuilder: (context, index) {
             final post = controller.posts[index];
-            return Container(
-              decoration: BoxDecoration(
-                color: post.isRead ? Colors.white : Colors.yellow[100],
-                border: Border.all(color: Colors.blueAccent),
+            return Card(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
               ),
-              child: InkWell(
-                onTap: () =>
-                    Get.toNamed(Routes.localPostDetail, arguments: post.id),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    radius: 25,
-                    child: Text(post.id.toString()),
-                  ),
-
-                  title: Text(
-                    post.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    post.body,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+              color: post.isRead ? Colors.white : Colors.yellow[100],
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () =>
+                      Get.toNamed(Routes.localPostDetail, arguments: post.id),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      radius: 25,
+                      child: Text(post.id.toString()),
+                    ),
+                    title: Text(
+                      post.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      post.body,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),

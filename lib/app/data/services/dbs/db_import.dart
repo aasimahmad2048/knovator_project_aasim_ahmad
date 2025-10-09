@@ -44,36 +44,31 @@ class DbImport implements Db {
 
     final dbResponse = await postDetail(post.id);
 
-    if (dbResponse.status) {
-      final existingPost = dbResponse.data;
+    if (!dbResponse.status || dbResponse.data == null) {
+      // Post not found ->insert
+      await db.insert(
+        DbPath.postsTable,
+        post.copyWith(isRead: false).toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return;
+    }
+    final existingPost = dbResponse.data!;
+    final networkPostJson = jsonEncode(post.toJson());
+    final dbPostJson = jsonEncode(existingPost.toJson());
 
-      if (existingPost == null) {
-        // Post doesn't exist, insert
-        await db.insert(
-          DbPath.postsTable,
-          post.copyWith(isRead: false).toMap(),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-      } else {
-        // Post exists, check if content has changed
-        final networkPostJson = jsonEncode(post.toJson());
-        final dbPostJson = jsonEncode(existingPost.toJson());
+    if (networkPostJson != dbPostJson) {
+      print("Network: $networkPostJson");
+      print("DB: $dbPostJson");
 
-        if (networkPostJson != dbPostJson) {
-          print("Network: $networkPostJson");
-          print("DB: $dbPostJson");
+      final postToUpdate = post.copyWith(isRead: existingPost.isRead);
 
-          // Update, but preserve the local read status
-          final postToUpdate = post.copyWith(isRead: existingPost.isRead);
-
-          await db.update(
-            DbPath.postsTable,
-            postToUpdate.toMap(),
-            where: '${DbPath.colId} = ?',
-            whereArgs: [post.id],
-          );
-        }
-      }
+      await db.update(
+        DbPath.postsTable,
+        postToUpdate.toMap(),
+        where: '${DbPath.colId} = ?',
+        whereArgs: [post.id],
+      );
     }
   }
 
